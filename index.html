@@ -67,15 +67,33 @@
 
 <h1>Registro de Defeitos - Usina ERO Tucumã</h1>
 
+// inicia o formulário 
+
 <form id="formDefeito">
   <label>Operador:</label>
   <input type="text" name="operador" required>
 
   <label>Área:</label>
-  <input type="text" name="area" required>
+  <select name="area" required>
+    <option value="">Selecione</option>
+    <option>Moagem</option>
+    <option>Filtragem</option>
+    <option>Secagem</option>
+    <option>Caldeira</option>
+    <option>Bombas</option>
+    <option>Ar Comprimido</option>
+  </select>
 
   <label>Equipamento:</label>
-  <input type="text" name="equipamento" required>
+  <select name="equipamento" required>
+    <option value="">Selecione</option>
+    <option>Britador Primário</option>
+    <option>Esteira Transportadora</option>
+    <option>Peneira Vibratória</option>
+    <option>Bomba de Recalque</option>
+    <option>Filtro Prensa</option>
+    <option>Secador Rotativo</option>
+  </select>
 
   <label>Descrição do Problema:</label>
   <textarea name="descricao" rows="3" required></textarea>
@@ -91,13 +109,26 @@
   </select>
 
   <label>Pessoa Responsável:</label>
-  <input type="text" name="responsavel" required>
+  <select name="responsavel" required>
+    <option value="">Selecione</option>
+    <option>Adilson</option>
+    <option>Camila</option>
+    <option>Felipe</option>
+    <option>Jefferson</option>
+    <option>Patrícia</option>
+    <option>Vinícius</option>
+  </select>
 
   <label>Previsão de Solução:</label>
   <input type="date" name="previsao" required>
 
   <label>Turma:</label>
-  <input type="text" name="turma" required>
+  <select name="turma" required>
+    <option value="">Selecione</option>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
 
   <label>Turno:</label>
   <select name="turno" required>
@@ -115,6 +146,8 @@
 
   <button type="submit">Registrar Defeito</button>
 </form>
+
+// terminou o formulário
 
 <div class="painel">
   <h2 style="text-align:center; color:#003366;">📋 Registros Recentes</h2>
