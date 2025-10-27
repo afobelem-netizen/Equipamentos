@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registro de Defeitos - Usina ERO Tucumã</title>
   <style>
     body {
@@ -67,32 +67,24 @@
 
 <h1>Registro de Defeitos - Usina ERO Tucumã</h1>
 
-// inicia o formulário 
-
 <form id="formDefeito">
   <label>Operador:</label>
   <input type="text" name="operador" required>
 
   <label>Área:</label>
-  <select name="area" required>
+  <select name="area" id="area" required>
     <option value="">Selecione</option>
-    <option>Moagem</option>
-    <option>Filtragem</option>
-    <option>Secagem</option>
-    <option>Caldeira</option>
-    <option>Bombas</option>
-    <option>Ar Comprimido</option>
+    <option value="Moagem">Moagem</option>
+    <option value="Filtragem">Filtragem</option>
+    <option value="Secagem">Secagem</option>
+    <option value="Caldeira">Caldeira</option>
+    <option value="Bombas">Bombas</option>
+    <option value="Ar Comprimido">Ar Comprimido</option>
   </select>
 
   <label>Equipamento:</label>
-  <select name="equipamento" required>
-    <option value="">Selecione</option>
-    <option>Britador Primário</option>
-    <option>Esteira Transportadora</option>
-    <option>Peneira Vibratória</option>
-    <option>Bomba de Recalque</option>
-    <option>Filtro Prensa</option>
-    <option>Secador Rotativo</option>
+  <select name="equipamento" id="equipamento" required>
+    <option value="">Selecione uma área primeiro</option>
   </select>
 
   <label>Descrição do Problema:</label>
@@ -147,8 +139,6 @@
   <button type="submit">Registrar Defeito</button>
 </form>
 
-// terminou o formulário
-
 <div class="painel">
   <h2 style="text-align:center; color:#003366;">📋 Registros Recentes</h2>
   <iframe 
@@ -163,6 +153,32 @@ const API_URL = "https://api.sheetmonkey.io/form/2vQ93tCGEzBL5baxdnafQU";
 function gerarID() {
   return 'DEF-' + Date.now().toString(36).toUpperCase();
 }
+
+// Equipamentos por área
+const equipamentosPorArea = {
+  "Moagem": ["Britador Primário", "Esteira Transportadora", "Peneira Vibratória"],
+  "Filtragem": ["Filtro Prensa 01", "Filtro Prensa 02", "Bomba de Recalque", "Tanque de Polpa"],
+  "Secagem": ["Secador Rotativo", "Ventilador de Exaustão", "Tubo de Aquecimento"],
+  "Caldeira": ["Caldeira 01", "Trocador de Calor", "Chaminé", "Válvula de Segurança"],
+  "Bombas": ["Bomba Centrífuga 01", "Bomba Centrífuga 02", "Motobomba de Recalque"],
+  "Ar Comprimido": ["Compressor 01", "Compressor 02", "Reservatório de Ar", "Secador de Ar"]
+};
+
+// Atualiza lista de equipamentos ao mudar a área
+document.getElementById("area").addEventListener("change", function() {
+  const areaSelecionada = this.value;
+  const campoEquipamento = document.getElementById("equipamento");
+  campoEquipamento.innerHTML = "<option value=''>Selecione</option>";
+
+  if (equipamentosPorArea[areaSelecionada]) {
+    equipamentosPorArea[areaSelecionada].forEach(equip => {
+      const opt = document.createElement("option");
+      opt.value = equip;
+      opt.textContent = equip;
+      campoEquipamento.appendChild(opt);
+    });
+  }
+});
 
 document.getElementById("formDefeito").addEventListener("submit", async (e) => {
   e.preventDefault();
